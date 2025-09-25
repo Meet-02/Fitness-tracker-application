@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>Fitness Tracker</header>
+
+<div class="container">
+
+    <!-- Workouts Section -->
+    <h2>Workouts</h2>
+    <form method="POST" action="/add_workout">
+        <input type="text" name="type" placeholder="Workout Type" required>
+        <input type="number" name="duration" placeholder="Duration (min)" required>
+        <input type="number" name="calories" placeholder="Calories Burned" required>
+        <button type="submit">Add Workout</button>
+    </form>
+    <table>
+        <tr>
+            <th>ID</th><th>Type</th><th>Duration</th><th>Calories</th><th>Actions</th>
+        </tr>
+        {% for w in workouts %}
+        <tr>
+            <td>{{ w[0] }}</td>
+            <td>{{ w[1] }}</td>
+            <td>{{ w[2] }}</td>
+            <td>{{ w[3] }}</td>
+            <td>
+                <a href="/update_workout/{{ w[0] }}"><button class="action-btn edit-btn">Edit</button></a>
+                <a href="/delete_workout/{{ w[0] }}"><button class="action-btn delete-btn">Delete</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Diet Section -->
+    <h2>Diet Records</h2>
+    <form method="POST" action="/add_diet">
+        <input type="text" name="meal" placeholder="Meal Name" required>
+        <input type="number" name="calories" placeholder="Calories" required>
+        <input type="number" name="protein" placeholder="Protein (g)" required>
+        <button type="submit">Add Diet</button>
+    </form>
+    <table>
+        <tr>
+            <th>ID</th><th>Meal</th><th>Calories</th><th>Protein</th><th>Actions</th>
+        </tr>
+        {% for d in diets %}
+        <tr>
+            <td>{{ d[0] }}</td>
+            <td>{{ d[1] }}</td>
+            <td>{{ d[2] }}</td>
+            <td>{{ d[3] }}</td>
+            <td>
+                <a href="/update_diet/{{ d[0] }}"><button class="action-btn edit-btn">Edit</button></a>
+                <a href="/delete_diet/{{ d[0] }}"><button class="action-btn delete-btn">Delete</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Wearables Section -->
+    <h2>Wearable Data</h2>
+    <form method="POST" action="/add_wearable">
+        <input type="number" name="heart_rate" placeholder="Heart Rate" required>
+        <input type="number" name="steps" placeholder="Steps" required>
+        <input type="text" name="recorded_at" placeholder="Recorded At (YYYY-MM-DD)" required>
+        <button type="submit">Add Record</button>
+    </form>
+    <table>
+        <tr>
+            <th>ID</th><th>Heart Rate</th><th>Steps</th><th>Recorded At</th><th>Actions</th>
+        </tr>
+        {% for w in wearables %}
+        <tr>
+            <td>{{ w[0] }}</td>
+            <td>{{ w[1] }}</td>
+            <td>{{ w[2] }}</td>
+            <td>{{ w[3] }}</td>
+            <td>
+                <a href="/update_wearable/{{ w[0] }}"><button class="action-btn edit-btn">Edit</button></a>
+                <a href="/delete_wearable/{{ w[0] }}"><button class="action-btn delete-btn">Delete</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+</body>
+</html>
